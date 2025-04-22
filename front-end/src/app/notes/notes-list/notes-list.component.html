@@ -1,0 +1,18 @@
+<div class="header">
+    <button (click)="goBack()">← Back</button>
+    <button class="button-primary" (click)="createNote()">+ Note</button>
+  </div>
+  
+  <ul>
+    <li *ngFor="let note of notes">
+      <span [class.marked]="note.marked"
+            (click)="toggleMark(note.id)">★</span>
+  
+      <a [routerLink]="['/note/edit', note.id]">
+        {{ note.title || 'Untitled' }}
+      </a>
+  
+      <button (click)="delete(note.id)">🗑️</button>
+    </li>
+  </ul>
+  

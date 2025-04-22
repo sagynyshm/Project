@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    margin: 0;
+  }
+  
+  a {
+    color: #1976d2;
+  }
+  
+  .header {
+    background-color: #1976d2;
+    color: #ffffff;
+    padding: 1rem;
+  }
+  
+  .button-primary {
+    background-color: #1976d2;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  .button-primary:hover {
+    opacity: 0.9;
+  }
+  

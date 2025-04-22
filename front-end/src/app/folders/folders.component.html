@@ -1,0 +1,10 @@
+<div class="header">
+    <h1>Your Folders</h1>
+    <button class="button-primary" (click)="newFolder()">+ Add</button>
+  </div>
+  <ul>
+    <li *ngFor="let f of folders">
+      <a [routerLink]="['/folders', f.id]">{{ f.name }}</a>
+    </li>
+  </ul>
+  
