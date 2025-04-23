@@ -1,4 +1,3 @@
-// src/app/auth/login/login.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -9,25 +8,30 @@ import { AuthService } from '../auth.service';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  template: `
-    <div class="login-form">
-      <h2>Login</h2>
-      <input [(ngModel)]="username" placeholder="Username" />
-      <input [(ngModel)]="password" type="password" placeholder="Password" />
-      <button class="button-primary" (click)="onLogin()">Sign In</button>
-    </div>
-  `
+  templateUrl: './login.component.html'
 })
 export class LoginComponent {
-  username = '';
+  username = '';     // сюда вводится e-mail или username
   password = '';
-  constructor(private auth: AuthService, private router: Router) {}
 
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) {}
+  goRegister() {
+    this.router.navigate(['/register']);
+  }
+  
+
+  /** вызывается при клике на кнопку Log in */
   onLogin() {
-    if (this.auth.login(this.username, this.password)) {
-      this.router.navigate(['/']);
+    const ok = this.auth.login(this.username.trim(), this.password);
+
+    if (ok) {
+      this.router.navigate(['/']);     // переход в приложение
     } else {
-      alert('Invalid credentials');
+      alert('Invalid credentials');    // или вывод ошибки
     }
   }
 }
+

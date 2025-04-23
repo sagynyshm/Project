@@ -1,0 +1,32 @@
+<!-- src/app/auth/register/register.component.html -->
+<section class="login-form">
+  <h2 class="login-title">Create account</h2>
+
+  <label class="login-field">
+    <span>E-mail</span>
+    <input [(ngModel)]="email"
+           type="email"
+           placeholder="you@example.com" />
+  </label>
+
+  <label class="login-field">
+    <span>Username</span>
+    <input [(ngModel)]="username" placeholder="Your username" />
+  </label>
+
+  <label class="login-field">
+    <span>Password</span>
+    <input [(ngModel)]="password"
+           type="password"
+           placeholder="••••••••" />
+  </label>
+
+  <button class="button-primary"
+          (click)="onRegister()">
+    Sign up
+  </button>
+
+  <a routerLink="/login" class="link-signup">
+    Already have an account?
+  </a>
+</section>

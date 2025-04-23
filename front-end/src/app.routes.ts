@@ -6,7 +6,7 @@ import { NoteEditorComponent } from './app/notes/note-editor/note-editor.compone
 import { inject } from '@angular/core';
 import { AuthService } from './app/auth/auth.service';
 import { Router } from '@angular/router';
-
+import { RegisterComponent } from './app/auth/sign in/register.component';
 const authGuard = () => {
   const auth = inject(AuthService);
   const router = inject(Router);
@@ -19,7 +19,8 @@ const authGuard = () => {
 };
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: 'login',    component: LoginComponent },
+  { path: 'register', component: RegisterComponent },{ path: '',         component: FoldersComponent, canActivate: [authGuard] },
   { path: '', component: FoldersComponent, canActivate: [authGuard] },
   { path: 'folders/:id', component: NotesListComponent, canActivate: [authGuard] },
   { path: 'note/new/:folderId', component: NoteEditorComponent, canActivate: [authGuard] },

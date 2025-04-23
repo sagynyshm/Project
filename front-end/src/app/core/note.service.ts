@@ -1,62 +1,58 @@
 import { Injectable } from '@angular/core';
-import { Note } from './models/note.model';
 import { Folder } from './models/folder.model';
-import { v4 as uuid } from 'uuid';
+import { Note }   from './models/note.model';
 
 @Injectable({ providedIn: 'root' })
 export class NoteService {
-  private NOTES_KEY = 'TASK_MANAGER_NOTES';
-  private FOLDERS_KEY = 'TASK_MANAGER_FOLDERS';
+  /* —————————— демо-хранилище в памяти —————————— */
+  private folders: Folder[] = [];
+  private notes:   Note[]   = [];
 
-  constructor() {
-    if (!this.getFolders().length) {
-      this.createFolder({ id: uuid(), name: 'General' });
-    }
-  }
-
-
+  /* =====  Папки  ===== */
   getFolders(): Folder[] {
-    return JSON.parse(localStorage.getItem(this.FOLDERS_KEY) || '[]');
-  }
-  createFolder(folder: Folder) {
-    const all = this.getFolders();
-    all.push(folder);
-    localStorage.setItem(this.FOLDERS_KEY, JSON.stringify(all));
+    return [...this.folders];
   }
 
-  // — Notes CRUD —
+  createFolder(folder: Folder) {
+    this.folders.push(folder);
+  }
+
+  renameFolder(id: string, newName: string) {
+    const f = this.folders.find(f => f.id === id);
+    if (f) f.name = newName;
+  }
+
+  deleteFolder(id: string) {
+    this.notes   = this.notes.filter(n => n.folderId !== id);
+    this.folders = this.folders.filter(f => f.id !== id);
+  }
+
+  /* =====  Заметки  ===== */
   getNotes(): Note[] {
-    return JSON.parse(localStorage.getItem(this.NOTES_KEY) || '[]')
-      .map((n: any) => ({ ...n, createdAt: new Date(n.createdAt), updatedAt: new Date(n.updatedAt) }));
+    return [...this.notes];
   }
+
   getNotesByFolder(folderId: string): Note[] {
-    return this.getNotes().filter(n => n.folderId === folderId);
+    return this.notes.filter(n => n.folderId === folderId);
   }
-  createNote(note: Partial<Note>) {
-    const all = this.getNotes();
-    const newNote: Note = {
-      id: uuid(),
-      title: note.title || '',
-      content: note.content || '',
-      folderId: note.folderId!,
-      marked: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-    all.push(newNote);
-    localStorage.setItem(this.NOTES_KEY, JSON.stringify(all));
+
+  createNote(note: Note) {
+    this.notes.push(note);
   }
+
   updateNote(note: Note) {
-    let all = this.getNotes();
-    all = all.map(n => n.id === note.id ? { ...note, updatedAt: new Date() } : n);
-    localStorage.setItem(this.NOTES_KEY, JSON.stringify(all));
+    const idx = this.notes.findIndex(n => n.id === note.id);
+    if (idx !== -1) this.notes[idx] = note;
   }
+
   deleteNote(id: string) {
-    const all = this.getNotes().filter(n => n.id !== id);
-    localStorage.setItem(this.NOTES_KEY, JSON.stringify(all));
+    this.notes = this.notes.filter(n => n.id !== id);
   }
+
   toggleMarkNote(id: string) {
-    const all = this.getNotes().map(n => n.id === id ? { ...n, marked: !n.marked, updatedAt: new Date() } : n);
-    localStorage.setItem(this.NOTES_KEY, JSON.stringify(all));
+    const n = this.notes.find(n => n.id === id);
+    if (n) n.marked = !n.marked;
   }
 }
+
+

@@ -1,0 +1,21 @@
+<!-- login.component.html -->
+<section class="login-form">
+  <div class="login-header">
+    <h2 class="login-title">Sign in to</h2>
+    <img src="assets/logo1.svg" alt="Logo" class="login-logo" />
+  </div>
+  <label class="login-field">
+    <span>E-mail or Username</span>
+    <input [(ngModel)]="username" placeholder="e-mail or nickname" />
+  </label>
+
+  <label class="login-field">
+    <span>Password</span>
+    <input [(ngModel)]="password" type="password" placeholder="•••••" />
+  </label>
+
+  <button class="button-primary" (click)="onLogin()">Log in</button>
+  <button class="button-secondary" (click)="goRegister()">
+    Sign up
+  </button>
+</section>

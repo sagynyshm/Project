@@ -1,4 +1,3 @@
-// src/app/folders/folders.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -13,11 +12,37 @@ import { Folder } from '../core/models/folder.model';
 })
 export class FoldersComponent implements OnInit {
   folders: Folder[] = [];
+
   constructor(private svc: NoteService) {}
-  ngOnInit() { this.folders = this.svc.getFolders(); }
+
+  ngOnInit() { this.load(); }
+
+  /* ——— CRUD ——— */
   newFolder() {
-    const name = prompt('Folder name:');
-    if (name) this.svc.createFolder({ id: crypto.randomUUID(), name });
+    const name = prompt('Folder name:')?.trim();
+    if (name) {
+      this.svc.createFolder({ id: crypto.randomUUID(), name });
+      this.load();
+    }
+  }
+
+  rename(id: string, current: string) {
+    const newName = prompt('New folder name:', current)?.trim();
+    if (newName) {
+      this.svc.renameFolder(id, newName);
+      this.load();
+    }
+  }
+
+  remove(id: string) {
+    if (confirm('Delete this folder and all notes?')) {
+      this.svc.deleteFolder(id);
+      this.load();
+    }
+  }
+
+  /* ——— helper ——— */
+  private load() {
     this.folders = this.svc.getFolders();
   }
 }
