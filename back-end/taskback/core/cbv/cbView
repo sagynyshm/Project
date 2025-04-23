@@ -1,0 +1,36 @@
+
+
+### 4.2  Class‑Based Views (**2 штуки**)  
+
+
+from rest_framework.generics import (
+    ListCreateAPIView,
+    RetrieveUpdateDestroyAPIView,
+)
+from rest_framework.permissions import IsAuthenticated
+from .serializers import TaskSerializer, TaskReadSerializer
+
+
+class TaskListCreateView(ListCreateAPIView):
+    serializer_class      = TaskSerializer        # POST /tasks/
+    permission_classes    = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Task.objects.for_user(self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class TaskRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+    serializer_class      = TaskSerializer        # PUT /tasks/<id>/
+    permission_classes    = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Task.objects.for_user(self.request.user)
+
+    # отдаём более короткий сериализатор при GET
+    def get_serializer_class(self):
+        if self.request.method == "GET":
+            return TaskReadSerializer
+        return TaskSerializer
