@@ -14,37 +14,42 @@ export class NotesListComponent implements OnInit {
   notes: Note[] = [];
   folderId!: string;
 
+  showCompleted = true;
+
   constructor(
     private route: ActivatedRoute,
     private svc: NoteService,
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.folderId = this.route.snapshot.params['id'];
     this.load();
   }
 
-  load() {
+  toggleFilter(): void {
+    this.showCompleted = !this.showCompleted;
+  }
+
+  load(): void {
     this.notes = this.svc.getNotesByFolder(this.folderId);
   }
 
-  toggleMark(id: string) {
+  toggleMark(id: string): void {
     this.svc.toggleMarkNote(id);
     this.load();
   }
 
-  delete(id: string) {
+  delete(id: string): void {
     this.svc.deleteNote(id);
     this.load();
   }
 
- 
-  createNote() {
+  createNote(): void {
     this.router.navigate(['/note/new', this.folderId]);
   }
 
-  goBack() {
+  goBack(): void {
     this.router.navigate(['/']);
   }
 }

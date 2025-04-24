@@ -1,4 +1,3 @@
-// src/app/auth/register/register.component.ts
 import { Component }   from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule }  from '@angular/forms';
@@ -9,12 +8,13 @@ import { AuthService }  from '../auth.service';
   selector: 'app-register',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
-  templateUrl: './register.component.html'
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']   
 })
 export class RegisterComponent {
-  email    = '';   // привязка к полю E-mail
-  username = '';   // привязка к полю Username
-  password = '';   // привязка к полю Password
+  email    = '';
+  username = '';
+  password = '';
 
   constructor(
     private auth: AuthService,
@@ -22,13 +22,7 @@ export class RegisterComponent {
   ) {}
 
   onRegister() {
-    // trim() убирает лишние пробелы
-    const ok = this.auth.register(
-      this.email.trim(),
-      this.username.trim(),
-      this.password
-    );
-
+    const ok = this.auth.register(this.email.trim(), this.username.trim(), this.password);
     if (ok) {
       alert('Account created! Please log in.');
       this.router.navigate(['/login']);
@@ -37,3 +31,4 @@ export class RegisterComponent {
     }
   }
 }
+

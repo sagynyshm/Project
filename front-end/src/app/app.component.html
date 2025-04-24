@@ -1,5 +1,6 @@
-<div class="header">
-  <h1>Task Manager</h1>
-</div>
-
 <router-outlet></router-outlet>
+
+<footer *ngIf="shouldShowFooter()" class="footer">
+  <button class="logout-btn" (click)="auth.logout()">Logout</button>
+</footer>
+

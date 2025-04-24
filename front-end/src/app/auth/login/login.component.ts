@@ -11,7 +11,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
-  username = '';     // сюда вводится e-mail или username
+  username = '';     
   password = '';
 
   constructor(
@@ -23,15 +23,16 @@ export class LoginComponent {
   }
   
 
-  /** вызывается при клике на кнопку Log in */
-  onLogin() {
-    const ok = this.auth.login(this.username.trim(), this.password);
 
-    if (ok) {
-      this.router.navigate(['/']);     // переход в приложение
-    } else {
-      alert('Invalid credentials');    // или вывод ошибки
-    }
+onLogin() {
+  const ok = this.auth.login(this.username.trim(), this.password);
+
+  if (ok) {
+    this.router.navigate(['/folders']);   
+  } else {
+    alert('Invalid credentials');
   }
+}
+
 }
 

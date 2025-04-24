@@ -4,11 +4,9 @@ import { Note }   from './models/note.model';
 
 @Injectable({ providedIn: 'root' })
 export class NoteService {
-  /* —————————— демо-хранилище в памяти —————————— */
   private folders: Folder[] = [];
   private notes:   Note[]   = [];
 
-  /* =====  Папки  ===== */
   getFolders(): Folder[] {
     return [...this.folders];
   }
@@ -27,7 +25,6 @@ export class NoteService {
     this.folders = this.folders.filter(f => f.id !== id);
   }
 
-  /* =====  Заметки  ===== */
   getNotes(): Note[] {
     return [...this.notes];
   }
