@@ -8,3 +8,19 @@ export interface Note {
   createdAt: Date;
   updatedAt: Date;
 }
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+}
+
+export interface TaskStatus {
+  id: number;
+  name: string;
+}
+
+export interface Category {
+  id: number;
+  name: string;
+}
+
