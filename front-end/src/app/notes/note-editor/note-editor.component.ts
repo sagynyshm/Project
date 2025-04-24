@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule }  from '@angular/forms';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { NoteService }  from '../../core/note.service';
-import { Note }         from '../../core/models/note.model';
+import { Note }         from '../../models/note.model';
 
 @Component({
   selector: 'app-note-editor',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Folder } from './models/folder.model';
-import { Note }   from './models/note.model';
+import { Folder } from '../models/folder.model';
+import { Note }   from '../models/note.model';
 
 @Injectable({ providedIn: 'root' })
 export class NoteService {

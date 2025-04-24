@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NoteService } from '../core/note.service';
-import { Folder } from '../core/models/folder.model';
+import { Folder } from '../models/folder.model';
 
 @Component({
   selector: 'app-folders',

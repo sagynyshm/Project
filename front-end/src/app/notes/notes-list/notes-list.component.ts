@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NoteService } from '../../core/note.service';
-import { Note } from '../../core/models/note.model';
+import { Note } from '../../models/note.model';
 
 @Component({
   selector: 'app-notes-list',
