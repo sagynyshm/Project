@@ -1,119 +1,62 @@
-// import { Injectable } from '@angular/core';
-// import { Router } from '@angular/router';
-
-// @Injectable({ providedIn: 'root' })
-// export class AuthService {
-//   private readonly TOKEN_KEY = 'TASK_MANAGER_TOKEN';
-
-//   constructor(private router: Router) {}
-
-//   login(username: string, password: string): boolean {
-//     // TODO: заменить на запрос к Django
-//     if (username && password) {
-//       localStorage.setItem(this.TOKEN_KEY, 'fake-jwt-token');
-//       return true;
-//     }
-//     return false;
-//   }
-
-//   logout() {
-//     localStorage.removeItem(this.TOKEN_KEY);
-//     this.router.navigate(['/login']);
-//   }
-
-//   isAuthenticated(): boolean {
-//     return !!localStorage.getItem(this.TOKEN_KEY);
-//   }
-// }
-
-
+// src/app/auth/auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
-interface LocalUser {
-  email:    string;
-  username: string;
-  password: string;   // (!) хранится в plain-text только для демо!
+interface LoginResp {
+  access: string;
+  refresh: string;
 }
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-<<<<<<< Updated upstream
-  private readonly TOKEN_KEY = 'TASK_TOKEN';
-  private readonly USERS_KEY = 'TASK_USERS';   // массив зарегистрированных
-=======
-  private readonly TOKEN_KEY = 'TASK_MANAGER_TOKEN';
-  private readonly REFRESH_KEY = 'TASK_MANAGER_REFRESH';
-  private readonly API_URL = 'http://localhost:8000/api';  // измени под свой адрес
->>>>>>> Stashed changes
+  private readonly ACCESS_KEY  = 'TASK_ACCESS_TOKEN';
+  private readonly REFRESH_KEY = 'TASK_REFRESH_TOKEN';
+  private readonly API_URL     = 'http://localhost:8000/api';  // поменяй под свой бек
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
-<<<<<<< Updated upstream
-  /* ---------- REGISTER ---------- */
-  register(email: string, username: string, password: string): boolean {
-    const users: LocalUser[] = JSON.parse(localStorage.getItem(this.USERS_KEY) ?? '[]');
-
-    if (users.find(u => u.email === email)) {
-      return false;                                // e-mail уже занят
-    }
-    users.push({ email, username, password });
-    localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
-    return true;
+  /** Отправляет credentials на бэк и сохраняет полученные access и refresh токены */
+  login(username: string, password: string): Observable<LoginResp> {
+    return this.http
+      .post<LoginResp>(`${this.API_URL}/auth/login/`, { username, password })
+      .pipe(
+        tap(res => {
+          localStorage.setItem(this.ACCESS_KEY, res.access);
+          localStorage.setItem(this.REFRESH_KEY, res.refresh);
+        })
+      );
   }
 
-  /* ---------- LOGIN ---------- */
-  login(emailOrUsername: string, password: string): boolean {
-    const users: LocalUser[] = JSON.parse(localStorage.getItem(this.USERS_KEY) ?? '[]');
-    const user = users.find(u =>
-      (u.email === emailOrUsername || u.username === emailOrUsername) &&
-       u.password === password
-    );
+  /** Опционально: регистрация через API */
+//   register(username: string, password: string): Observable<any> {
+//     return this.http.post(`${this.API_URL}/auth/register/`, { username, password });
+//   }
 
-    if (user) {
-      localStorage.setItem(this.TOKEN_KEY, 'dummy-token');  // «фальшивый» JWT
-      return true;
-    }
-    return false;
-=======
-  login(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.API_URL}/login/`, { username, password }).pipe(
-      tap((res: any) => {
-        localStorage.setItem(this.TOKEN_KEY, res.access);
-        localStorage.setItem(this.REFRESH_KEY, res.refresh);
-      })
-    );
->>>>>>> Stashed changes
-  }
-
-  /* ---------- STATE / LOGOUT ---------- */
-  logout() {
-    localStorage.removeItem(this.TOKEN_KEY);
+  /** Удаляет токены и редиректит на /login */
+  logout(): void {
+    localStorage.removeItem(this.ACCESS_KEY);
     localStorage.removeItem(this.REFRESH_KEY);
     this.router.navigate(['/login']);
   }
 
+  /** Проверяет, залогинен ли пользователь */
   isAuthenticated(): boolean {
-    return !!localStorage.getItem(this.TOKEN_KEY);
-  }
-<<<<<<< Updated upstream
-  setToken(token: string): void {
-    localStorage.setItem('token', token);
+    return !!localStorage.getItem(this.ACCESS_KEY);
   }
 
-  getToken(): string | null {
-    return localStorage.getItem('token');
+  /** Для интерцептора: вернуть access-токен */
+  getAccessToken(): string | null {
+    return localStorage.getItem(this.ACCESS_KEY);
   }
 
- 
-=======
-
-  getToken(): string | null {
-    return localStorage.getItem(this.TOKEN_KEY);
+  /** При необходимости: вернуть refresh-токен */
+  getRefreshToken(): string | null {
+    return localStorage.getItem(this.REFRESH_KEY);
   }
->>>>>>> Stashed changes
 }
-
 
