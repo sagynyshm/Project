@@ -1,7 +1,10 @@
 
+
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from . import views
+from rest_framework.routers import DefaultRouter
+
 
 urlpatterns = [
     # JWT auth
@@ -15,4 +18,7 @@ urlpatterns = [
     # Extra FBV‑эндоинты
     path("statuses/",            views.status_list,   name="status-list"),
     path("tasks/<int:pk>/status/", views.change_status, name="task-change-status"),
+    path("categories/", views.CategoryListView.as_view(), name="category-list"),
+    path('register/', RegisterAPIView.as_view(), name='register'),
 ]
+

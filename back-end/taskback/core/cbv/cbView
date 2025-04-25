@@ -1,5 +1,6 @@
 
 
+
 ### 4.2  Class‑Based Views (**2 штуки**)  
 
 
@@ -34,3 +35,4 @@ class TaskRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
         if self.request.method == "GET":
             return TaskReadSerializer
         return TaskSerializer
+
