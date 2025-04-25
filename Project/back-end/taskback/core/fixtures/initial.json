@@ -1,0 +1,6 @@
+
+[
+    {"model": "core.taskstatus", "pk": 1, "fields": {"name": "todo"}},
+    {"model": "core.taskstatus", "pk": 2, "fields": {"name": "in‑progress"}},
+    {"model": "core.taskstatus", "pk": 3, "fields": {"name": "done"}}
+]

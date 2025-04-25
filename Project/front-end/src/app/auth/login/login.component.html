@@ -1,0 +1,44 @@
+<section class="login-screen">
+
+
+  <aside class="login-aside">
+    <img src="assets/logo1.svg" alt="iTask Logo" class="site-logo">
+
+    <p class="site-description">
+      iTask is a lightweight task-management tool designed to help you organize, prioritize and track your work in a single, intuitive interface.
+    </p>
+
+    <div class="social-icons">
+      <a href="https://www.facebook.com"   target="_blank" rel="noopener">
+        <img src="assets/facebook.png"   alt="Facebook">
+      </a>
+      <a href="https://www.instagram.com" target="_blank" rel="noopener">
+        <img src="assets/inst.png"        alt="Instagram">
+      </a>
+      <a href="https://www.twitter.com"    target="_blank" rel="noopener">
+        <img src="assets/twitter.png"    alt="Twitter">
+      </a>
+    </div>
+  </aside>
+
+  <section class="login-form">
+    <div class="login-header">
+      <h2 class="login-title">Sign in to <strong>iTask</strong></h2>
+      <img src="assets/logo1.svg" alt="Logo" class="login-logo" />
+    </div>
+
+    <label class="login-field">
+      <span>E-mail or Username</span>
+      <input [(ngModel)]="username" placeholder="e-mail or nickname" />
+    </label>
+
+    <label class="login-field">
+      <span>Password</span>
+      <input [(ngModel)]="password" type="password" placeholder="••••••••" />
+    </label>
+
+    <button class="button-primary" (click)="onLogin()">Log in</button>
+    <button class="button-secondary" (click)="goRegister()">Sign up</button>
+  </section>
+
+</section>

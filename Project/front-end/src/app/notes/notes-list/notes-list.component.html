@@ -1,0 +1,35 @@
+<div class="header">
+  <button class="back-btn" (click)="goBack()">← Back</button>
+
+  <button
+    class="button-secondary filter-btn"
+    (click)="toggleFilter()">
+    {{ showCompleted
+       ? 'Show only uncompleted'
+       : 'Show only completed' }}
+  </button>
+
+  <button class="button-primary" (click)="createNote()">+ Note</button>
+</div>
+
+
+<ul class="notes-ul">
+  <ng-container *ngFor="let note of notes">
+    <li *ngIf="note.marked === showCompleted" [class.done]="note.marked">
+      <input
+        type="checkbox"
+        class="mark-box"
+        [checked]="note.marked"
+        (change)="toggleMark(note.id)"
+      />
+
+      <a [routerLink]="['/note/edit', note.id]">
+        {{ note.title || 'Untitled' }}
+      </a>
+
+      <button class="delete-btn" (click)="delete(note.id)">❌</button>
+    </li>
+  </ng-container>
+</ul>
+
+

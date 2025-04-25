@@ -1,0 +1,46 @@
+<section class="login-screen">
+
+  <aside class="login-aside">
+    <img src="assets/logo1.svg" alt="iTask Logo" class="site-logo">
+
+    <p class="site-description">
+      iTask is a lightweight task-management tool designed to help you organize,
+      prioritize and track your work in a single, intuitive interface.
+    </p>
+
+    <div class="social-icons">
+      <a href="https://www.facebook.com" target="_blank" rel="noopener">
+        <img src="assets/facebook.png" alt="Facebook">
+      </a>
+      <a href="https://www.instagram.com" target="_blank" rel="noopener">
+        <img src="assets/inst.png" alt="Instagram">
+      </a>
+      <a href="https://www.twitter.com" target="_blank" rel="noopener">
+        <img src="assets/twitter.png" alt="Twitter">
+      </a>
+    </div>
+  </aside>
+
+  <section class="login-form">
+    <h2 class="login-title">Create an account</h2>
+
+    <label class="login-field">
+      <span>E-mail</span>
+      <input [(ngModel)]="email" type="email" placeholder="you@example.com" />
+    </label>
+
+    <label class="login-field">
+      <span>Username</span>
+      <input [(ngModel)]="username" placeholder="Your username" />
+    </label>
+
+    <label class="login-field">
+      <span>Password</span>
+      <input [(ngModel)]="password" type="password" placeholder="••••••••" />
+    </label>
+
+    <button class="button-primary" (click)="onRegister()">Sign up</button>
+    <a routerLink="/login" class="link-signup">Already have an account?</a>
+  </section>
+
+</section>

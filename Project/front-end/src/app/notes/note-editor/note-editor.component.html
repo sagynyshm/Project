@@ -1,0 +1,17 @@
+<div class="header">
+  <button class="back-btn" (click)="goBack()">← Back</button>
+</div>
+
+<div class="editor" (keyup.enter)="save()">
+  <h2>{{ isNew ? 'New Note' : 'Edit Note' }}</h2>
+
+  <input [(ngModel)]="note.title" placeholder="Title" />
+
+  <textarea [(ngModel)]="note.content" rows="10"></textarea>
+
+  <div class="actions">
+    <button class="button-primary" (click)="save()">Save</button>
+    <button class="button-secondary" (click)="cancel()">Cancel</button>
+
+  </div>
+</div>

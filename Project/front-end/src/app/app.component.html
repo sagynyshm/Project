@@ -1,0 +1,17 @@
+<nav>
+  <a routerLink="/tasks">Tasks</a>
+  <a routerLink="/tasks/new">New Task</a>
+  <button *ngIf="!auth.isAuthenticated()" routerLink="/login">Login</button>
+  <button *ngIf="auth.isAuthenticated()" (click)="auth.logout(); router.navigate(['/login'])">
+    Logout
+  </button>
+</nav>
+
+<router-outlet></router-outlet>
+
+<footer *ngIf="shouldShowFooter()" class="footer">
+  <button class="logout-btn" (click)="auth.logout()">Logout</button>
+</footer>
+
+
+
