@@ -8,7 +8,7 @@ from rest_framework import status
 from .models import Task, TaskStatus
 from .serializers import (
     TaskSerializer, TaskReadSerializer,
-    StatusUpdateSerializer,
+    StatusUpdateSerializer, TaskStatusSerializer
 )
 
 
@@ -86,4 +86,8 @@ class RegisterAPIView(APIView):
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+
+class TaskStatusViewSet(viewsets.ModelViewSet):
+    queryset = TaskStatus.objects.all()
+    serializer_class = TaskStatusSerializer
 

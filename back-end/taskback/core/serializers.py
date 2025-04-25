@@ -76,7 +76,7 @@ class StatusUpdateSerializer(serializers.Serializer):
         raise NotImplementedError
     
 
-    from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
 class RegisterSerializer(serializers.ModelSerializer):

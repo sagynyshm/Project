@@ -21,14 +21,21 @@ from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.routers import DefaultRouter
 from core.views import TaskViewSet
+from core.views import TaskStatusViewSet
+from django.http import HttpResponse
 
+
+
+def home_view(request):
+    return HttpResponse("✅ Django is working. Try accessing /api/")
 
 router = DefaultRouter()
-router.register(r'tasks', TaskViewSet)
-router.register(r'taskstatuses', TaskStatusViewSet)
-router.register(r'categories', CategoryViewSet)
+# router.register(r'tasks', TaskViewSet)
+# router.register(r'taskstatuses', TaskStatusViewSet)
+# router.register(r'categories', CategoryViewSet)
 
 urlpatterns = [
+    path('', home_view),
     path("admin/", admin.site.urls),
     path("api/",   include("core.urls")),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
